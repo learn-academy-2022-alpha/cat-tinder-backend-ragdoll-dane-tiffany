@@ -5,3 +5,40 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+dogs = [
+  {
+    name: 'Kai',
+    age: 2,
+    enjoys: 'Eating anything on the ground (mostly sticks)',
+    image: 'https://github.com/Rethora/dogpics/blob/main/kai.jpg?raw=true'
+  },
+  {
+    name: 'Kuma',
+    age: 11,
+    enjoys: 'Belly rubs',
+    image: 'https://github.com/Rethora/dogpics/blob/main/kuma.jpg?raw=true'
+  },
+  {
+    name: 'Murphy',
+    age: 11,
+    enjoys: 'Sleeping anywhere but his own bed',
+    image: 'https://github.com/Rethora/dogpics/blob/main/murphy.jpg?raw=true'
+  },
+  {
+    name: 'Sheldon',
+    age: 3,
+    enjoys: 'Long walks along the creek',
+    image: 'https://github.com/Rethora/dogpics/blob/main/sheldon.jpg?raw=true'
+  },
+  {
+    name: 'Apollo',
+    age: 4,
+    enjoys: 'Only listening when he wants to',
+    image: 'https://github.com/Rethora/dogpics/blob/main/apollo.jpg?raw=true'
+  }
+]
+
+dogs.each do |attr|
+  Dog.create attr 
+  puts "created the dog #{attr}"
+end
