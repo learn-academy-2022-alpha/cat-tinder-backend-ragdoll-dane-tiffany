@@ -7,35 +7,30 @@
 #   Character.create(name: "Luke", movie: movies.first)
 dogs = [
   {
-    id: 1,
     name: 'Kai',
     age: 2,
     enjoys: 'Eating anything on the ground (mostly sticks)',
     image: 'https://github.com/Rethora/dogpics/blob/main/kai.jpg?raw=true'
   },
   {
-    id: 2,
     name: 'Kuma',
     age: 11,
     enjoys: 'Belly rubs',
     image: 'https://github.com/Rethora/dogpics/blob/main/kuma.jpg?raw=true'
   },
   {
-    id: 3,
     name: 'Murphy',
     age: 11,
     enjoys: 'Sleeping anywhere but his own bed',
     image: 'https://github.com/Rethora/dogpics/blob/main/murphy.jpg?raw=true'
   },
   {
-    id: 4,
     name: 'Sheldon',
     age: 3,
     enjoys: 'Long walks along the creek',
     image: 'https://github.com/Rethora/dogpics/blob/main/sheldon.jpg?raw=true'
   },
   {
-    id: 5,
     name: 'Apollo',
     age: 4,
     enjoys: 'Only listening when he wants to',
