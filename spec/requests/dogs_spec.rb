@@ -71,4 +71,106 @@ RSpec.describe "Dogs", type: :request do
       expect(dogs).to be_empty
     end
   end
+  describe 'should return 422 with invalid params' do
+    it 'does not create a dog without a name' do
+      dog_params = {
+        dog: {
+          age: 2,
+          enjoys: 'Walks in the park',
+          image: 'https://github.com/Rethora/dogpics/blob/main/kai.jpg?raw=true'
+        }
+      }
+      post '/dogs', params: dog_params
+      expect(response.status).to eq 422
+      json = JSON.parse(response.body)
+      expect(json['name']).to include "can't be blank"
+    end
+    it 'does not create a dog without an age' do
+      dog_params = {
+        dog: {
+          name: 'Kai',
+          enjoys: 'Walks in the park',
+          image: 'https://github.com/Rethora/dogpics/blob/main/kai.jpg?raw=true'
+        }
+      }
+      post '/dogs', params: dog_params
+      expect(response.status).to eq 422
+      json = JSON.parse(response.body)
+      expect(json['age']).to include "can't be blank"
+    end
+    it 'does not create a dog without enjoys' do
+      dog_params = {
+        dog: {
+          name: 'Kai',
+          age: 2,
+          image: 'https://github.com/Rethora/dogpics/blob/main/kai.jpg?raw=true'
+        }
+      }
+      post '/dogs', params: dog_params
+      expect(response.status).to eq 422
+      json = JSON.parse(response.body)
+      expect(json['enjoys']).to include "can't be blank"
+    end
+    it 'does not create a dog without an image' do
+      dog_params = {
+        dog: {
+          name: 'Kai',
+          age: 2,
+          enjoys: 'Walks in the park'
+        }
+      }
+      post '/dogs', params: dog_params
+      expect(response.status).to eq 422
+      json = JSON.parse(response.body)
+      expect(json['image']).to include "can't be blank"
+    end
+    it 'does not create a dog with enjoys less than 10 characters long' do
+      dog_params = {
+        dog: {
+          name: 'Kai',
+          age: 2,
+          enjoys: 'pooping',
+          image: 'https://github.com/Rethora/dogpics/blob/main/kai.jpg?raw=true'
+        }
+      }
+      post '/dogs', params: dog_params
+      expect(response.status).to eq 422
+      json = JSON.parse(response.body)
+      expect(json['enjoys']).to include 'is too short (minimum is 10 characters)'
+    end
+    it 'does not update a dog with invalid validation' do
+      old_dog = Dog.create(
+        name: 'Kai',
+        age: 2,
+        enjoys: 'Eating anything on the ground (mostly sticks)',
+        image: 'https://github.com/Rethora/dogpics/blob/main/kai.jpg?raw=true'
+      )
+      dog_params = {
+        dog: {
+          enjoys: 'pooping'
+        }
+      }
+      patch "/dogs/#{old_dog.id}", params: dog_params
+      expect(response.status).to eq 422
+      json = JSON.parse(response.body)
+      expect(json['enjoys']).to include 'is too short (minimum is 10 characters)'
+    end
+    it 'does not update a dog with empty name' do
+      old_dog = Dog.create(
+        name: 'Kai',
+        age: 2,
+        enjoys: 'Eating anything on the ground (mostly sticks)',
+        image: 'https://github.com/Rethora/dogpics/blob/main/kai.jpg?raw=true'
+      )
+      dog_params = {
+        dog: {
+          name: ''
+        }
+      }
+      patch "/dogs/#{old_dog.id}", params: dog_params
+      expect(response.status).to eq 422
+      json = JSON.parse(response.body)
+      expect(json['name']).to include "can't be blank"
+    end
+  end
 end
