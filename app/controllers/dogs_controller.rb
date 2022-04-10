@@ -1,7 +1,7 @@
 class DogsController < ApplicationController
   def index
     dogs = Dog.all
-    render json: dogs
+    render json: dogs.as_json(include: :comments)
   end
   def create
     dog = Dog.create(dog_params)
